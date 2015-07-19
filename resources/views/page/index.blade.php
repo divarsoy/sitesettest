@@ -14,7 +14,7 @@
         </tr>
         @foreach($pages as $page)
             <tr>
-                <td>{{ $page->title }}</td>
+                <td><a href="{{ URL::action('PageController@show', $page->id)}}">{{$page->title }}</a></td>
                 <td>
                     {{isset($page->client->name) ? $page->client->name : '' }}
                 </td>
