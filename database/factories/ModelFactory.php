@@ -43,7 +43,7 @@ $factory->define(App\Site::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Page::class, function (Faker\Generator $faker) {
     return [
-        'title' => $faker->title(),
+        'title' => $faker->sentence,
         'content' => $faker->paragraphs(3, true),
         'is_active' => true
     ];
