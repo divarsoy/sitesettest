@@ -5,9 +5,19 @@ php:
   - 5.6
   - hhvm
 
+services: mysql
+
+env:
+  - DB_HOST=localhost
+  - DB_DATABASE=sitesettest
+  - DB_USERNAME=travis
+  - DB_PASSWORD=
+
 before_script:
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-source --dev
+  - mysql -e "create database IF NOT EXISTS sitesettest;" -uroot; fi
+  - php artisan migrate:refresh --seed
 
 script:
   - phpunit --coverage-text --coverage-clover=coverage.clover
