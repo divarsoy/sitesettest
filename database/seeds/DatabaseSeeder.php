@@ -45,8 +45,7 @@ class DatabaseSeeder extends Seeder
      */
     protected function createPageWithSite($siteId){
         $page = factory('App\Page', 1)->create();
-        $site = App\Site::find($siteId);
-        $page->site()->associate($site);
+        $page->site()->associate($siteId);
         $page->save();
     }
 
@@ -56,7 +55,6 @@ class DatabaseSeeder extends Seeder
      */
     protected function createPageWithClient($clientId){
         $page = factory('App\Page', 1)->create();
-        $client= App\Client::find($clientId);
         $page->client()->associate($clientId);
         $page->save();
     }
