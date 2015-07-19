@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Page;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -16,7 +17,12 @@ class PageController extends Controller
      */
     public function index()
     {
-        //
+        $pages = Page::orderBy('Title', 'asc')
+            ->with('site')
+            ->with('client')
+            ->get();
+        return view('page.index', compact('pages'));
+
     }
 
     /**
