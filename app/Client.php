@@ -15,11 +15,11 @@ class Client extends Model
 
     public function sites()
     {
-        return $this->hasMany('App\Sites');
+        return $this->hasMany('App\Site');
     }
 
     public function pages()
     {
-        return $this->hasMany('App\Pages');
+        return $this->hasMany('App\Page');
     }
 }

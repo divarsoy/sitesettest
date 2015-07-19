@@ -32,7 +32,7 @@ class AddClientToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('is_active');
-            $table->dropForegin('users_client_id_foreign');
+            $table->dropForeign('users_client_id_foreign');
             $table->dropColumn('client_id');
         });
     }
