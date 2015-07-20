@@ -8,7 +8,7 @@ php:
 services: mysql
 
 env:
-  - DB_HOST=localhost
+  - DB_HOST=127.0.0.1
   - DB_DATABASE=sitesettest
   - DB_USERNAME=travis
   - DB_PASSWORD=
@@ -17,8 +17,11 @@ before_script:
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-source --dev
   - mysql -e "create database IF NOT EXISTS sitesettest;"
+  - php artisan migrate:install --env=testing --no-interaction -vvv
 
 script:
+  - php artisan migrate --env=testing --no-interaction -vvv
+  - php artisan db:seed --env=testing --no-interaction -vvv
   - phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_script:
