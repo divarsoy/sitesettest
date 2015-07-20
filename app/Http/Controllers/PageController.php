@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
 use App\Page;
+use App\Site;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -32,18 +34,23 @@ class PageController extends Controller
      */
     public function create()
     {
-        //
+        $clients = Client::orderBy('name', 'asc')->lists('name', 'id');
+        $sites = Site::orderBy('name', 'asc')->lists('name', 'id');
+
+        return view('page.create', compact('clients', 'sites'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Requests\PageFormRequest  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Requests\PageFormRequest $request)
     {
-        //
+        $page = Page::create($request->all());
+        return redirect('page')->with('status', 'Page saved!');
+
     }
 
     /**

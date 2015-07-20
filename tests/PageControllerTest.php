@@ -18,4 +18,10 @@ class PageControllerTest extends TestCase
             ->see('Showing');
     }
 
+    public function testCreateShowsTitle()
+    {
+        $this->visit('/page/create')
+            ->see('Create a page');
+    }
+
 }

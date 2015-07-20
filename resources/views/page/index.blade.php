@@ -4,6 +4,7 @@
 
 @section('content')
     <h1>List over all pages</h1>
+    <a href="{{ URL::action('PageController@create') }}">Create</a>
     <table class="table">
         <tr>
             <th>Title</th>

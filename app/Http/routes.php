@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::resource('page', 'PageController');
+Route::post('page/store', 'PageController@store');
