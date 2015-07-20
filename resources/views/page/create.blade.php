@@ -18,12 +18,13 @@
     {!! Form::label('content', 'Content') !!}
     {!! Form::textarea('content', Input::old('content'), array('class' => 'form-control')) !!}
 </div>
-
+    <br>
+    <h2>Please choose availability for either client or site</h2>
 <div class="form-group">
     {!! Form::label('client_id', 'Client') !!}
     {!! Form::select('client_id', [''=>''] +  $clients->all(), Input::old('client_id'), array('class' => 'form-control')) !!}
 </div>
-
+<p>- or -</p>
 <div class="form-group">
     {!! Form::label('site_id', 'Site') !!}
     {!! Form::select('site_id', [''=>''] +  $sites->all(), Input::old('site_id'), array('class' => 'form-control')) !!}

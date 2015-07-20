@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 
 class PageController extends Controller
 {
@@ -48,7 +49,23 @@ class PageController extends Controller
      */
     public function store(Requests\PageFormRequest $request)
     {
-        $page = Page::create($request->all());
+        $site = Input::get('site_id');
+        $client = Input::get('client_id');
+        if(empty($site) && empty($client)) {
+            return redirect('page/create')->with('error', 'You must choose either a client or a site!');
+        }
+
+        $page = new Page();
+        $page->title = Input::get('title');
+        $page->content = Input::get('content');
+
+        if(!empty($site)){
+            $page->site_id = $site;
+        }
+        else {
+            $page->client_id = $client;
+        }
+        $page->save();
         return redirect('page')->with('status', 'Page saved!');
 
     }
