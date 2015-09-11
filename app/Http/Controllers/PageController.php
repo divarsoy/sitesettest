@@ -20,7 +20,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        $pages = Page::orderBy('Title', 'asc')
+        $pages = Page::orderBy('id', 'asc')
             ->with('site')
             ->with('client')
             ->get();
