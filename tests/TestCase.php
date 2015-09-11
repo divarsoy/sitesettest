@@ -22,4 +22,16 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         return $app;
     }
+
+    /**
+     * Tests to see whether the view template provided is the one
+     * used in rendering the view.
+     *
+     * @param  string
+     * @return void
+     */
+    protected function assertViewIs($templateName)
+    {
+        return $this->assertEquals($templateName, $this->response->original->getName());
+    }
 }
