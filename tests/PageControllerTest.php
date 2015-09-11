@@ -82,8 +82,7 @@ class PageControllerTest extends TestCase
     public function testShowShowsTitle()
     {
         $this->visit('/page/1')
-            ->see('Showing')
-            ->see('Luke');
+            ->see('Showing');
 
 
     }
