@@ -96,8 +96,7 @@ class PageControllerTest extends TestCase
     public function testCreateShowsTitle()
     {
         $this->visit('/page/create')
-            ->see('Create a page')
-            ->see('Luke');
+            ->see('Create a page');
 
     }
 
