@@ -149,6 +149,7 @@ return [
          */
         Collective\Html\HtmlServiceProvider::class,
         Illuminate\Html\HtmlServiceProvider::class,
+        App\Providers\PageRepositoryProvider::class,
     ],
 
     /*

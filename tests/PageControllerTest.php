@@ -5,9 +5,28 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use app\Client;
 
+use App\Contracts\PageModel;
+use App\Http\Controllers\PageController;
+
 class PageControllerTest extends TestCase
 {
     use DatabaseTransactions;
+
+    public function testPageControllerShow()
+    {
+        $pageId = 1;
+        $title = 'My test page';
+        $page = factory(App\Page::class)->make([
+            'title' => $title,
+        ]);
+        $pageRepositoryMock = \Mockery::mock('App\Contracts\PageRepositoryInterface');
+        $pageRepositoryMock->shouldReceive('find')->with($pageId)->once()->andReturn($page);
+
+        $pageController = new PageController($this->app, $pageRepositoryMock);
+        $response = $pageController->show($pageId);
+        $this->assertEquals($page, $response->page, 'Page model is wrong or missing from response');
+        $this->assertEquals('page.show', $response->getName(), 'Rendered view is not page.show');
+    }
 
     public function testIndexReturnsOK()
     {
@@ -55,6 +74,15 @@ class PageControllerTest extends TestCase
             ->see($pages[0]['title']) // Check for first page
             ->see($pages[49]['title']) // Check for last page
             ->see($site->name);
+    }
+
+    public function testShowPageWithSpecificPage()
+    {
+        $page = factory(App\Page::class)->create();
+        $this->visit('/page/'.$page->id)
+            ->see($page->title)
+            ->see($page->content);
+
     }
 
     public function testIndexLinkToShowWorks()
@@ -108,6 +136,8 @@ class PageControllerTest extends TestCase
         $this->assertViewHas('clients'); // Checking for array with clients
         //$this->assertViewHas('age', $value);
     }
+
+
 
 
 }

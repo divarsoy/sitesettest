@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', [
+    'as' => 'home', 'uses' => 'PageController@index'
+]);
 Route::resource('page', 'PageController');
 Route::post('page/store', 'PageController@store');

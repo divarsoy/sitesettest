@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Contracts\PageRepositoryInterface;
+use App\LeapYear;
 use App\Page;
 use App\Site;
 use Illuminate\Http\Request;
@@ -10,9 +12,31 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
+use App\Contracts\PageModel;
+use Illuminate\Foundation\Application as App;
 
 class PageController extends Controller
 {
+    protected $page;
+    protected $view;
+
+    public function __construct( App $app, PageRepositoryInterface $page){
+        $this->page = $page;
+        $this->app = $app;
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $page = $this->page->find($id);
+        return $this->app->make('view')->make('page.show')->with(compact('page'));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +44,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        $pages = Page::orderBy('id', 'asc')
+        $pages = Page::orderBy('id', 'desc')
             ->with('site')
             ->with('client')
             ->get();
@@ -70,17 +94,7 @@ class PageController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        $page = Page::find($id);
-        return View('page.show', compact('page'));
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -90,7 +104,8 @@ class PageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $leapYear = new LeapYear();
+        echo $leapYear->isLeapYear(1980);
     }
 
     /**
